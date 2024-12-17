@@ -6,8 +6,8 @@ import { BrowserRouter } from 'react-router-dom'
 import actionCable from 'actioncable'
 
 const CableApp = {}
-CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
-// CableApp.cable = actionCable.createConsumer('wss://dating-app-yln5.onrender.com/cable')
+// CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
+CableApp.cable = actionCable.createConsumer('wss://dating-app-yln5.onrender.com/cable')
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
