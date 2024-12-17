@@ -4,8 +4,7 @@ import Chat from './Chat'
 function ChatList({ listMessage, matchUsers, user, setMatchChatDisplay, setRecipient, showUnreadMessages, setShowUnreadMessages, setPrevMatchChatDisplay, cable, matchChatDisplay }) {
   const [lastReadAt, setLastReadAt] = useState('')
   const [pairId, setPairId] = useState(null)
-  console.log('chatlist---')
-  console.log(matchUsers)
+
   const recipientId =
     listMessage[0]['message']['sender_id'] === user.id ?
       listMessage[0]['message']['recipient_id'] :
@@ -36,32 +35,35 @@ function ChatList({ listMessage, matchUsers, user, setMatchChatDisplay, setRecip
     setPrevMatchChatDisplay(0)
     setMatchChatDisplay(1)
   }
-  console.log(matchChatDisplay)
 
   return (
-    <div className="chat-list" onClick={handleClick}>
-      <div className="chat-list-img-name">
-        <img src={recipient?.url1} className="profile-photo" alt="profile" />
-        <div>
-          <h3>{recipient?.first_name}</h3>
-          <p>{listMessage[0]['message']['content']}</p>
+    <>
+      <div className="chat-list" onClick={handleClick}>
+        <div className="chat-list-img-name">
+          <img src={recipient?.url1} className="profile-photo" alt="profile" />
+          <div>
+            <h3>{recipient?.first_name}</h3>
+            <p>{listMessage[0]['message']['content']}</p>
+          </div>
         </div>
+        {showUnreadMessages.hasOwnProperty(pairId)
+          ?
+          showUnreadMessages[pairId] && newMessages !== 0 && <p className="unread-messages">{numberOfUnReadMessages}</p>
+          :
+          <p className="unread-messages">{numberOfUnReadMessages}</p>
+        }
       </div>
-      {showUnreadMessages.hasOwnProperty(pairId)
-        ?
-        showUnreadMessages[pairId] && newMessages !== 0 && <p className="unread-messages">{numberOfUnReadMessages}</p>
-        :
-        <p className="unread-messages">{numberOfUnReadMessages}</p>
+      {
+        listMessage && <Chat
+          user={user}
+          showUnreadMessages={showUnreadMessages}
+          setShowUnreadMessages={setShowUnreadMessages}
+          setMatchChatDisplay={setMatchChatDisplay}
+          matchChatDisplay={matchChatDisplay}
+          recipient={recipient}
+          cable={cable} />
       }
-      {listMessage && <Chat
-        user={user}
-        showUnreadMessages={showUnreadMessages}
-        setShowUnreadMessages={setShowUnreadMessages}
-        setMatchChatDisplay={setMatchChatDisplay}
-        matchChatDisplay={matchChatDisplay}
-        recipient={recipient}
-        cable={cable} />}
-    </div>
+    </>
   )
 }
 

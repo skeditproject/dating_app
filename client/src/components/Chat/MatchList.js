@@ -45,7 +45,7 @@ function MatchList({
         if (r.ok) {
           r.json().then((data) => {
             setMessages(data)
-            setPairId(data[0]['pair_id'])
+            setPairId(data?.[0]?.pair_id ?? '')
             setMatchChatDisplay(1)
           })
         }

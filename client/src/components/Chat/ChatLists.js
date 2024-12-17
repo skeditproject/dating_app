@@ -15,8 +15,6 @@ function ChatLists({ user, matchUsers, setMatchUsers, matchChatDisplay, setMatch
     }
   }, [user.id, setMatchUsers])
 
-  console.log('chatlists')
-  console.log(matchUsers)
   useEffect(() => {
     if (user.id) {
       fetch(`/api/users/${user.id}/message_histories`)
