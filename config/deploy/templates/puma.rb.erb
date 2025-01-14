@@ -1,0 +1,40 @@
+#!/usr/bin/env puma
+
+# Place this sample file to /home/deploy/apps/#{app_name}/shared/
+
+app_name = "innovis"
+
+directory "/home/deploy/apps/#{app_name}/current"
+rackup "/home/deploy/apps/#{app_name}/current/config.ru"
+environment "production"
+
+tag ''
+
+pidfile "/home/deploy/apps/#{app_name}/shared/tmp/pids/puma.pid"
+state_path "/home/deploy/apps/#{app_name}/shared/tmp/pids/puma.state"
+stdout_redirect "/home/deploy/apps/#{app_name}/current/log/puma.access.log", "/home/deploy/apps/#{app_name}/current/log/puma.error.log", true
+
+threads 4,16
+
+bind "unix:///home/deploy/apps/#{app_name}/shared/tmp/sockets/#{app_name}-puma.sock"
+
+workers 0
+
+restart_command 'bundle exec puma'
+
+preload_app!
+
+on_restart do
+  puts 'Refreshing Gemfile'
+  ENV["BUNDLE_GEMFILE"] = ""
+end
+
+before_fork do
+  ActiveRecord::Base.connection_pool.disconnect!
+end
+
+on_worker_boot do
+  ActiveSupport.on_load(:active_record) do
+    ActiveRecord::Base.establish_connection
+  end
+end

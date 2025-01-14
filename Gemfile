@@ -44,6 +44,12 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "byebug"
+  gem "capistrano",         require: false
+  gem "capistrano-rvm",     require: false
+  gem "capistrano-rails",   require: false
+  gem "capistrano-faster-assets", require: false
+  gem "capistrano-bundler", require: false
+  gem 'capistrano3-puma', ">= 5.2.0",   require: falseclient/package.json
 end
 
 group :development do
