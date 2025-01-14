@@ -49,7 +49,7 @@ group :development, :test do
   gem "capistrano-rails",   require: false
   gem "capistrano-faster-assets", require: false
   gem "capistrano-bundler", require: false
-  gem 'capistrano3-puma', ">= 5.2.0",   require: falseclient/package.json
+  gem 'capistrano3-puma', ">= 5.2.0",   require: false
 end
 
 group :development do
