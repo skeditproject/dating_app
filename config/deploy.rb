@@ -35,7 +35,7 @@ set :nginx_use_ssl, true
 #set :puma_enable_socket_service, true
 ## Defaults:
 # set :scm,           :git
-set :branch, 'master'
+set :branch, 'main'
 # set :format,        :pretty
 # set :log_level,     :debug
 set :keep_releases, 2
